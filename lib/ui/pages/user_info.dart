@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
+import 'package:slugflutter/utils/kommuner.dart';
+
 
 class UserInfo extends StatefulWidget  {
   @override
@@ -9,7 +11,19 @@ class UserInfo extends StatefulWidget  {
 
 class _UserInfoState extends State<UserInfo> {
 
-  List<String> _fylker = ['A', 'B', 'C', 'D']; 
+  List<String> _fylker = [
+    'Agder',
+    'Innlandet',
+    'Møre og Romsdal',
+    'Nordland',
+    'Oslo',
+    'Rogaland',
+    'Telemark og Vestfold',
+    'Troms og Finnmark',
+    'Trøndelag',
+    'Vestland',
+    'Viken',
+    ]; 
   List<String> _kommuner = []; // Get set when fylke has been choosen
   String _selectedFylke;
   String _selectedKommune;
@@ -58,8 +72,8 @@ class _UserInfoState extends State<UserInfo> {
                         value: _selectedFylke,
                         onChanged: (newValue) {
                           setState(() {
-                            // Set the _kommuner list here!
                             _selectedFylke = newValue;
+                            _kommuner = kommuner[_selectedFylke];
                           });
                         },
                         items: _fylker.map((fylke) {
