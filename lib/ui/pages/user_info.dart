@@ -9,6 +9,11 @@ class UserInfo extends StatefulWidget  {
 
 class _UserInfoState extends State<UserInfo> {
 
+  List<String> _fylker = ['A', 'B', 'C', 'D']; 
+  List<String> _kommuner = []; // Get set when fylke has been choosen
+  String _selectedFylke;
+  String _selectedKommune;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +22,7 @@ class _UserInfoState extends State<UserInfo> {
         builder: (context) => AlertDialog(
           backgroundColor: CustomTheme.getTheme.dialogBackgroundColor,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          title: Text('Fangst',
+          title: Text('Bruker info',
             style: TextStyle(
               color: Colors.white,
               fontSize: 30.0
@@ -32,7 +37,7 @@ class _UserInfoState extends State<UserInfo> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 10.0, bottom: 20.0),
-                  child: Text('Antall',
+                  child: Text('Velg Fylke',
                     style: TextStyle(
                       fontSize: 20.0,
                       color: Colors.white,
@@ -41,7 +46,71 @@ class _UserInfoState extends State<UserInfo> {
                   ),
                 ),
                 Container(
-                  //Dropdown for fylke her!
+                  color: Colors.white,
+                  child: DropdownButtonHideUnderline(
+                    child: ButtonTheme(
+                      alignedDropdown: true,
+                      child: DropdownButton(
+                        isExpanded: true,
+                        hint: Center(
+                          child: Text('Velg Fylke')
+                        ),
+                        value: _selectedFylke,
+                        onChanged: (newValue) {
+                          setState(() {
+                            // Set the _kommuner list here!
+                            _selectedFylke = newValue;
+                          });
+                        },
+                        items: _fylker.map((fylke) {
+                          return DropdownMenuItem(
+                            child: Center(
+                              child: Text(fylke)
+                            ),
+                            value: fylke,
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                  child: Text('Velg Kommune',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Container(
+                  color: Colors.white,
+                  child: DropdownButtonHideUnderline(
+                    child: ButtonTheme(
+                      alignedDropdown: true,
+                      child: DropdownButton(
+                        isExpanded: true,
+                        hint: Center(
+                          child: Text('Velg Kommune'),
+                        ),
+                        value: _selectedKommune,
+                        onChanged: (newValue) {
+                          setState(() {
+                            _selectedKommune = newValue;
+                          });
+                        },
+                        items: _kommuner.map((kommune) {
+                          return DropdownMenuItem(
+                            child: Center(
+                              child: Text(kommune)
+                            ),
+                            value: kommune,
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 30.0),
@@ -50,7 +119,7 @@ class _UserInfoState extends State<UserInfo> {
                     children: <Widget>[
                       RawMaterialButton(
                         onPressed: () { 
-                          // SEND _formController.text to DB together with al the other date the model needs.
+                          // Save fylke and kommune to SQLite DB. Usermodel.
                           FocusScope.of(context).requestFocus(FocusNode());
                           Navigator.pop(context);
                         },
