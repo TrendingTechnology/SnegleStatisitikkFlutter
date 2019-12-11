@@ -76,6 +76,7 @@ class _UserInfoState extends State<UserInfo> {
                         value: _selectedFylke,
                         onChanged: (newValue) {
                           setState(() {
+                            _selectedKommune = null;
                             _selectedFylke = newValue;
                             _kommuner = kommuner[_selectedFylke];
                           });
