@@ -16,7 +16,7 @@ class Stats extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 50.0),
               child: Text(
-                "App Info",
+                'Stats',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 50,

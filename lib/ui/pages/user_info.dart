@@ -139,6 +139,10 @@ class _UserInfoState extends State<UserInfo> {
                       RawMaterialButton(
                         onPressed: () { 
                           // Save fylke and kommune to SQLite DB. Usermodel.
+                          if (_selectedKommune == null || _selectedFylke == null) {
+                            return;
+                          }
+                          print(_selectedFylke + ', ' + _selectedKommune);
                           FocusScope.of(context).requestFocus(FocusNode());
                           Navigator.pop(context);
                         },

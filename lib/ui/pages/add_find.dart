@@ -46,6 +46,7 @@ class AddFindState extends State<AddFind> {
                 Container(
                   color: Colors.white,
                   child: TextFormField(
+                    keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 20.0,
@@ -63,8 +64,11 @@ class AddFindState extends State<AddFind> {
                     children: <Widget>[
                       RawMaterialButton(
                         onPressed: () { 
-                          // SEND _formController.text to DB together with al the other date the model needs.
-                          print(_formController.text);
+                          // SEND _formController.text to DB together with all the other data the model needs.
+                          if (!isNumeric(_formController.text)) {
+                            return;
+                          }
+                          print(int.parse(_formController.text));
                           FocusScope.of(context).requestFocus(FocusNode());
                           Navigator.pop(context);
                         },
@@ -101,4 +105,12 @@ class AddFindState extends State<AddFind> {
       ),
     );
   }
+}
+
+bool isNumeric(String numberOfSnails) {
+  String _numberOfSnails = numberOfSnails.trim();
+  if(_numberOfSnails == null || _numberOfSnails.contains('.') || _numberOfSnails.contains('-') || _numberOfSnails.contains(',')) {
+    return false;
+  }
+  return int.tryParse(_numberOfSnails) != null;
 }
