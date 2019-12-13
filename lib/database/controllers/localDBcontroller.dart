@@ -8,5 +8,5 @@ import 'package:sqflite/sqflite.dart';
 Future<void> addUser(User user) async {
   final Database db = await LocalDBProvider.db.database;
 
-  await db.insert('local:db', user.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+  await db.insert('local_db', user.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
 }

@@ -2,6 +2,9 @@ class User  {
   final int id;
   String kommune;
   String fylke;
+  int totalFinds;
+  int lastFind;
+  int maxFind;
 
   User({this.id, this.kommune, this.fylke});
 
@@ -9,7 +12,10 @@ class User  {
     return {
       'id': id,
       'fylke': fylke,
-      'kommune': kommune
+      'kommune': kommune,
+      'totalFinds': totalFinds,
+      'lastFind': lastFind,
+      'maxFind': maxFind,
     };
   }
 }
