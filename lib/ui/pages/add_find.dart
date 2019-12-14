@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:slugflutter/database/controllers/localDBcontroller.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
 
 class AddFind extends StatefulWidget  {
@@ -64,11 +65,11 @@ class AddFindState extends State<AddFind> {
                     children: <Widget>[
                       RawMaterialButton(
                         onPressed: () { 
-                          // SEND _formController.text to DB together with all the other data the model needs.
                           if (!isNumeric(_formController.text)) {
                             return;
                           }
-                          print(int.parse(_formController.text));
+                          // TODO: Update Local DB.
+                          
                           FocusScope.of(context).requestFocus(FocusNode());
                           Navigator.pop(context);
                         },

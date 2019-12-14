@@ -15,18 +15,19 @@ class LocalDBProvider {
     return _database;
 
     // if _database is null we instantiate it
-    _database = await initDB();
+    _database = await _initDB();
     return _database;
   }
 
-  initDB() async {
+  _initDB() async {
 
     return await openDatabase(join(await getDatabasesPath(), 'local_db.db'), onCreate: (Database db, int version) async {
         return await db.execute(
-          'CREATE TABLE local_db(id INTEGER PRIMARY KEY, kommune TEXT, fylke TEXT',
+          'CREATE TABLE slugflutter(id INTEGER PRIMARY KEY, fylke TEXT, kommune TEXT, totalFinds INTEGER, lastFind INTEGER, maxFind INTEGER)',
           );
       },
       version: 1,
+      singleInstance: true
     );
   }
 }

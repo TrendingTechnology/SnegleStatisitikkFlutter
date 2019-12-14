@@ -1,11 +1,7 @@
-import 'dart:async';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:flutter/material.dart';
-
+import 'package:slugflutter/ui/pages/main.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
 import 'package:slugflutter/utils/kommuner.dart';
-
 
 class UserInfo extends StatefulWidget  {
   @override
@@ -145,6 +141,9 @@ class _UserInfoState extends State<UserInfo> {
                           print(_selectedFylke + ', ' + _selectedKommune);
                           FocusScope.of(context).requestFocus(FocusNode());
                           Navigator.pop(context);
+                          Navigator.push(context, MaterialPageRoute(
+		                        builder: (context) => MainPage())
+	                        );
                         },
                         child: Container( 
                           child: Image(
@@ -159,6 +158,9 @@ class _UserInfoState extends State<UserInfo> {
                         onPressed: () {
                           FocusScope.of(context).requestFocus(FocusNode());
                           Navigator.pop(context);
+                          Navigator.push(context, MaterialPageRoute(
+		                        builder: (context) => MainPage())
+	                        );
                         },
                         child: Container( 
                           child: Image(
