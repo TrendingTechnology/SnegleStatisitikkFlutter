@@ -1,55 +1,81 @@
+//Singleton, only one user in this app locally, no login or users in the backend.
 class User {
-  int id;
-  String fylke = '';
-  String kommune = '';
-  int totalFinds = 0;
-  int lastFind = 0;
-  int maxFind = 0;
+  static String _fylke;
+  static String _kommune;
+  static int _totalFinds = 0;
+  static int _lastFind = 0;
+  static int _maxFind = 0;
 
-  User({
-    this.id,
-    this.fylke,
-    this.kommune,
-    this.totalFinds,
-    this.lastFind,
-    this.maxFind
-  });
+  static final User _singleton = User._internal();
 
-  set setKommune(String kommune) {
-    this.kommune = kommune;
+  factory User() {
+    return _singleton;
   }
 
-  set setFylke(String fylke)  {
-    this.fylke = fylke;
+  User._internal();
+
+  static set setFylke(String fylke)  {
+    _fylke = fylke;
   }
 
-  get getKommune  {
-    return this.kommune;
+  static set setKommune(String kommune) {
+    _kommune = kommune;
   }
 
-  get getFylke  {
-    return this.fylke;
+  static set setTotalFinds(int totalFinds)  {
+    _totalFinds = totalFinds;
   }
 
-  Map<String, dynamic> toMap()  {
+  static set setLastFind(int lastFind)  {
+    _lastFind = lastFind;
+  }
+
+  static set setMaxFind(int maxFind)  {
+    _maxFind = maxFind;
+  }
+
+  static get getFylke  {
+    return _fylke;
+  }
+
+  static get getKommune  {
+    return _kommune;
+  }
+
+  static get getTotalFinds  {
+    return _totalFinds;
+  }
+
+  static get getLastFind {
+      return _lastFind;
+    }
+
+  static get getMaxFind {
+    return _maxFind;
+  }
+
+  static addFind(int lastFind) {
+    _lastFind = lastFind;
+    _maxFind = lastFind > _maxFind ? lastFind : _maxFind;
+    _totalFinds += lastFind;
+  }
+
+  static Map<String, dynamic> toMap()  {
     return {
-      'id': id,
-      'fylke': fylke,
-      'kommune': kommune,
-      'totalFinds': totalFinds,
-      'lastFind': lastFind,
-      'maxFind': maxFind,
+      'fylke': _fylke,
+      'kommune': _kommune,
+      'totalFinds': _totalFinds,
+      'lastFind': _lastFind,
+      'maxFind': _maxFind,
     };
   }
 
-  User fromMap(Map<String, dynamic> userMap)  {
-    return User(
-      id: userMap[id],
-      fylke: userMap[fylke],
-      kommune: userMap[kommune],
-      totalFinds: userMap[totalFinds],
-      lastFind: userMap[lastFind],
-      maxFind: userMap[maxFind]
-    );
-  }
+  @override
+  String toString() {
+    return  'Fylke: $_fylke\n'
+            'Kommune: $_kommune\n'
+            'Mine funn: $_totalFinds\n'
+            'Forrige funn: $_lastFind\n'
+            'Max funn: $_maxFind';
+  }  
 }

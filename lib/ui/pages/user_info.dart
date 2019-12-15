@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:slugflutter/database/controllers/localDBcontroller.dart';
+import 'package:slugflutter/database/models/user_model.dart';
 import 'package:slugflutter/ui/pages/main.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
 import 'package:slugflutter/utils/kommuner.dart';
@@ -134,13 +136,14 @@ class _UserInfoState extends State<UserInfo> {
                     children: <Widget>[
                       RawMaterialButton(
                         onPressed: () { 
-                          // Save fylke and kommune to SQLite DB. Usermodel.
                           if (_selectedKommune == null || _selectedFylke == null) {
                             return;
                           }
-                          print(_selectedFylke + ', ' + _selectedKommune);
+
+                          LocalDBController.updateUser(_selectedFylke, _selectedKommune);
+                          
                           FocusScope.of(context).requestFocus(FocusNode());
-                          Navigator.pop(context);
+                          Navigator.of(context).pop();
                           Navigator.push(context, MaterialPageRoute(
 		                        builder: (context) => MainPage())
 	                        );
@@ -156,6 +159,10 @@ class _UserInfoState extends State<UserInfo> {
                       ),
                       RawMaterialButton(
                         onPressed: () {
+                          if (User.getKommune == null || User.getFylke == null) {
+                            return;
+                          }
+
                           FocusScope.of(context).requestFocus(FocusNode());
                           Navigator.pop(context);
                           Navigator.push(context, MaterialPageRoute(

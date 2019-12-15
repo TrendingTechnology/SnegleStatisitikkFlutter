@@ -9,12 +9,18 @@ import 'package:slugflutter/ui/themes/theme.dart';
 import 'add_find.dart';
 import 'app_info.dart';
 
-class MainPage extends StatelessWidget {
-  final int totalFinds = 0;
-  final int fylke = 0;
-  final int kommune = 0;
+class MainPage extends StatefulWidget {
+  MainPage({ Key key }) : super (key: key);
 
-  const MainPage({ Key key }) : super (key: key);
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage>  {
+
+  int totalFinds = User.getTotalFinds;
+  int fylke = 0;
+  int kommune = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +30,19 @@ class MainPage extends StatelessWidget {
       home: Scaffold(
         backgroundColor: CustomTheme.getTheme.backgroundColor,
         body: Center(
-          child: ListView(
+          child: FutureBuilder(
+            future: LocalDBController.checkUserData(),
+            builder: (context, snapshot) {
+              return _pageMainWidget();
+            },
+          )
+        )
+      )
+    );
+  }
+
+  ListView _pageMainWidget() {
+    return ListView(
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(top: 30.0),
@@ -176,11 +194,13 @@ class MainPage extends StatelessWidget {
                     padding: EdgeInsets.only(top: 100, left: 50.0),
                     child: Builder(
                       builder: (context) => RawMaterialButton(
-                        onPressed: () =>
+                        onPressed: () {
+                          Navigator.of(context).pop();
                           Navigator.push(
                             context, 
                             MaterialPageRoute(builder: (context) => AddFind()),
-                          ),
+                          );
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                             boxShadow: [
@@ -243,13 +263,12 @@ class MainPage extends StatelessWidget {
                 ),
               ),
             ],
-          )
-        )
-      )
-    );
+          );
   }
-}
 
-Future<User> getUser() async {
-  return await LocalDBController.getUser;
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return null;
+  }
 }

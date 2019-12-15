@@ -5,45 +5,53 @@ import 'package:sqflite/sqflite.dart';
 
 //TODO: Methods for manipulatin the local DB.
 
-String dbName = 'slugflutter';
+String _dbName = 'slugflutter';
 
 class LocalDBController {
 
-  static Future<void> addUpdateUser(User user) async {
+  static Future<void> updateUser(String fylke, String kommune) async {
     final Database db = await LocalDBProvider.db.database;
 
-    await db.insert(dbName, user.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+    User.setFylke = fylke;
+    User.setKommune = kommune;
+
+    await db.rawUpdate(
+      'UPDATE slugflutter SET fylke = ?, kommune = ? WHERE id = ?',
+      [fylke, kommune, 1]
+    );
+    print('Updated: $fylke, $kommune');
   }
 
-  static Future<User> get getUser async {
+  static Future<Map<String, dynamic>> checkUserData() async {
     final Database db = await LocalDBProvider.db.database;
 
-    final List<Map<String, dynamic>> userListMap = await db.query(dbName);
+    final List<Map<String, dynamic>> userListMap = await db.query(_dbName);
 
     Map<String, dynamic> _userMap;
     userListMap.forEach((user) => _userMap = user);
 
-    if (_userMap == null) {
-      return null;
-    }
+    String _fylke = await _userMap['fylke'];
+    String _kommune = await _userMap['kommune'];
 
-    return User(
-      id: await _userMap['id'],
-      fylke: await _userMap['fylke'],
-      kommune: await _userMap['kommune'],
-      totalFinds: await _userMap['totalFinds'],
-      lastFind: await _userMap['lastFind'],
-      maxFind: await _userMap['maxFind']
-    );
+    User.setFylke = _fylke == null ? '' : _fylke;
+    User.setKommune = _kommune == null ? '' : _kommune;
+    User.setTotalFinds = await _userMap['totalFinds'];
+    User.setLastFind = await _userMap['lastFind'];
+    User.setMaxFind = await _userMap['maxFind'];
+
+    print('User: $_userMap');
+    return _userMap;
   }
 
   static Future<void> addFinding(int count) async {
     // TODO: ALSO ADD TO THE REMOTE MONGO DB.
     final Database db = await LocalDBProvider.db.database;
 
-    int _newTotalFinds;
-    int _newLastFind;
-    int _newMaxFind;   
+    User.addFind(count);
+
+    await db.rawUpdate(
+    'UPDATE slugflutter SET totalFinds = ?, lastFind = ?, maxFind = ? WHERE id = ?',
+    [User.getTotalFinds, User.getLastFind, User.getMaxFind, 1]);
   }
 
 }

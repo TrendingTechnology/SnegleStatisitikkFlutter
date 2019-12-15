@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:slugflutter/database/controllers/localDBcontroller.dart';
+import 'package:slugflutter/database/models/user_model.dart';
+import 'package:slugflutter/ui/pages/main.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
 
 class AddFind extends StatefulWidget  {
@@ -64,14 +66,18 @@ class AddFindState extends State<AddFind> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       RawMaterialButton(
-                        onPressed: () { 
+                        onPressed: () async {
                           if (!isNumeric(_formController.text)) {
                             return;
                           }
-                          // TODO: Update Local DB.
+                          await LocalDBController.addFinding(int.parse(_formController.text));
                           
+                          print(User.getTotalFinds);
                           FocusScope.of(context).requestFocus(FocusNode());
-                          Navigator.pop(context);
+                          Navigator.of(context).pop();
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => MainPage()
+                          ));
                         },
                         child: Container( 
                           child: Image(
@@ -85,7 +91,10 @@ class AddFindState extends State<AddFind> {
                       RawMaterialButton(
                         onPressed: () {
                           FocusScope.of(context).requestFocus(FocusNode());
-                          Navigator.pop(context);
+                          Navigator.of(context).pop();
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => MainPage()
+                          ));
                         },
                         child: Container( 
                           child: Image(
