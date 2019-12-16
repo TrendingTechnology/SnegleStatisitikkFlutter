@@ -1,5 +1,6 @@
 //Singleton, only one user in this app locally, no login or users in the backend.
 class User {
+  static final int _id = 1; 
   static String _fylke;
   static String _kommune;
   static int _totalFinds = 0;
@@ -8,9 +9,7 @@ class User {
 
   static final User _userSingleton = User._internal();
 
-  factory User(String fylke, String kommune) {
-    _fylke = fylke;
-    _kommune = kommune;
+  factory User() {
     return _userSingleton;
   }
 
@@ -18,6 +17,7 @@ class User {
 
   static Map<String, dynamic> toMap()  {
     return {
+      'id': _id,
       'fylke': _fylke,
       'kommune': _kommune,
       'totalFinds': _totalFinds,

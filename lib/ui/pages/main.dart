@@ -29,8 +29,11 @@ class _MainPageState extends State<MainPage>  {
             future: LocalDBController.getAllUserData(),
             builder: (context, snapshot) {
               // TODO: Get Kommune and fylke stats to render!
-              var user = snapshot.data;
-              return _pageMainWidget(user['totalFinds'], 0, 0);
+              if (snapshot.connectionState == ConnectionState.done) {
+                var user = snapshot.data;
+                return _pageMainWidget(user['totalFinds'], 0, 0);
+              }
+              return Center();
             },
           )
         )

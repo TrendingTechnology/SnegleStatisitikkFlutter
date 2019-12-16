@@ -14,16 +14,20 @@ class LocalDBProvider {
   String _dbName = 'slugflutter';
 
   Future<Database> get database async {
-    if (_database != null)
+    if (_database != null)  {
       return _database;
+    }
 
     // if _database is null we instantiate it
     _database = await _initDB();
     
     //TODO: Migrate with User before return!
-
-    await _database.insert(_dbName, User.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
-    print('Inserted');
+    try {
+      await _database.insert(_dbName, User.toMap());
+      print('Inserted');
+    } catch (e) {
+      print('User already in database!');
+    }
 
     return _database;
   }

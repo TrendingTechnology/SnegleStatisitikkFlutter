@@ -27,13 +27,14 @@ class _MyAppState extends State<MyApp> {
           child: FutureBuilder(
             future: LocalDBController.getAllUserData(),
             builder: (context, snapshot) {
-              var user = snapshot.data;
-              if (snapshot.connectionState == ConnectionState.done && user['fylke'] == null) {
-                return UserInfo();
-              } else if (snapshot.connectionState == ConnectionState.waiting )  {
+              if (snapshot.connectionState == ConnectionState.done) {
+                var user = snapshot.data;
+                if (user['fylke'] == null)  {
+                  return UserInfo();
+                }
+                return MainPage();
+              } 
                 return Center();
-              }
-              return MainPage();
             },
           )
         ),
