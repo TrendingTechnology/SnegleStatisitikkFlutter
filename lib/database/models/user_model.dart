@@ -6,59 +6,15 @@ class User {
   static int _lastFind = 0;
   static int _maxFind = 0;
 
-  static final User _singleton = User._internal();
+  static final User _userSingleton = User._internal();
 
-  factory User() {
-    return _singleton;
+  factory User(String fylke, String kommune) {
+    _fylke = fylke;
+    _kommune = kommune;
+    return _userSingleton;
   }
 
   User._internal();
-
-  static set setFylke(String fylke)  {
-    _fylke = fylke;
-  }
-
-  static set setKommune(String kommune) {
-    _kommune = kommune;
-  }
-
-  static set setTotalFinds(int totalFinds)  {
-    _totalFinds = totalFinds;
-  }
-
-  static set setLastFind(int lastFind)  {
-    _lastFind = lastFind;
-  }
-
-  static set setMaxFind(int maxFind)  {
-    _maxFind = maxFind;
-  }
-
-  static get getFylke  {
-    return _fylke;
-  }
-
-  static get getKommune  {
-    return _kommune;
-  }
-
-  static get getTotalFinds  {
-    return _totalFinds;
-  }
-
-  static get getLastFind {
-      return _lastFind;
-    }
-
-  static get getMaxFind {
-    return _maxFind;
-  }
-
-  static addFind(int lastFind) {
-    _lastFind = lastFind;
-    _maxFind = lastFind > _maxFind ? lastFind : _maxFind;
-    _totalFinds += lastFind;
-  }
 
   static Map<String, dynamic> toMap()  {
     return {
@@ -68,6 +24,16 @@ class User {
       'lastFind': _lastFind,
       'maxFind': _maxFind,
     };
+  }
+
+  static User fromMap(Map<String, dynamic> userMap)  {
+    _fylke = userMap['fylke'];
+    _kommune = userMap['kommune'];
+    _totalFinds = userMap['totalFinds'];
+    _lastFind = userMap['lastFind'];
+    _maxFind = userMap['maxFind'];
+
+    return _userSingleton;
   }
 
   @override

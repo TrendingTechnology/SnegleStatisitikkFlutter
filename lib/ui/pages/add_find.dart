@@ -66,18 +66,18 @@ class AddFindState extends State<AddFind> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       RawMaterialButton(
-                        onPressed: () async {
+                        onPressed: () {
                           if (!isNumeric(_formController.text)) {
                             return;
                           }
-                          await LocalDBController.addFinding(int.parse(_formController.text));
-                          
-                          print(User.getTotalFinds);
-                          FocusScope.of(context).requestFocus(FocusNode());
-                          Navigator.of(context).pop();
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) => MainPage()
-                          ));
+                          var test = LocalDBController.addFinding(int.parse(_formController.text));
+                          test.then((newTotalFinding) {
+                            FocusScope.of(context).requestFocus(FocusNode());
+                            Navigator.of(context).pop();
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => MainPage()
+                            ));
+                          });
                         },
                         child: Container( 
                           child: Image(

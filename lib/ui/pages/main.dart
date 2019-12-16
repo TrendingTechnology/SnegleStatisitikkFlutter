@@ -1,7 +1,6 @@
 // To be retrived from DB
 import 'package:flutter/material.dart';
 import 'package:slugflutter/database/controllers/localDBcontroller.dart';
-import 'package:slugflutter/database/models/user_model.dart';
 import 'package:slugflutter/ui/pages/stats.dart';
 import 'package:slugflutter/ui/pages/user_info.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
@@ -18,10 +17,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage>  {
 
-  int totalFinds = User.getTotalFinds;
-  int fylke = 0;
-  int kommune = 0;
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,9 +26,11 @@ class _MainPageState extends State<MainPage>  {
         backgroundColor: CustomTheme.getTheme.backgroundColor,
         body: Center(
           child: FutureBuilder(
-            future: LocalDBController.checkUserData(),
+            future: LocalDBController.getAllUserData(),
             builder: (context, snapshot) {
-              return _pageMainWidget();
+              // TODO: Get Kommune and fylke stats to render!
+              var user = snapshot.data;
+              return _pageMainWidget(user['totalFinds'], 0, 0);
             },
           )
         )
@@ -41,7 +38,7 @@ class _MainPageState extends State<MainPage>  {
     );
   }
 
-  ListView _pageMainWidget() {
+  ListView _pageMainWidget(int totalFinds, int fylkeFindings, int kommuneFindings) {
     return ListView(
             children: <Widget>[
               Padding(
@@ -112,7 +109,7 @@ class _MainPageState extends State<MainPage>  {
                   ),
                   Container(
                     padding: const EdgeInsets.only(top: 5.0, right: 50.0),
-                    child: Text('$kommune',
+                    child: Text('$kommuneFindings',
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -144,7 +141,7 @@ class _MainPageState extends State<MainPage>  {
                   ),
                   Container(
                     padding: const EdgeInsets.only(top: 5.0, right: 50.0),
-                    child: Text('$fylke',
+                    child: Text('$fylkeFindings',
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,

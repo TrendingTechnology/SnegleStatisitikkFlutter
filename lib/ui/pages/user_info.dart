@@ -140,7 +140,7 @@ class _UserInfoState extends State<UserInfo> {
                             return;
                           }
 
-                          LocalDBController.updateUser(_selectedFylke, _selectedKommune);
+                          LocalDBController.updateUserLocation(_selectedFylke, _selectedKommune);
                           
                           FocusScope.of(context).requestFocus(FocusNode());
                           Navigator.of(context).pop();
@@ -159,7 +159,10 @@ class _UserInfoState extends State<UserInfo> {
                       ),
                       RawMaterialButton(
                         onPressed: () {
-                          if (User.getKommune == null || User.getFylke == null) {
+                          var location = LocalDBController.getUserLocation();
+                          location.then((_location)  {
+                            // Check if fylke or kommune has not been set.
+                            if (_location[0]['fylke'] == null || _location[0]['kommune'] == null) {
                             return;
                           }
 
@@ -168,6 +171,7 @@ class _UserInfoState extends State<UserInfo> {
                           Navigator.push(context, MaterialPageRoute(
 		                        builder: (context) => MainPage())
 	                        );
+                          });
                         },
                         child: Container( 
                           child: Image(

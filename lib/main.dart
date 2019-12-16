@@ -25,12 +25,10 @@ class _MyAppState extends State<MyApp> {
         backgroundColor: CustomTheme.getTheme.backgroundColor,
         body: Center(
           child: FutureBuilder(
-            future: LocalDBController.checkUserData(),
+            future: LocalDBController.getAllUserData(),
             builder: (context, snapshot) {
-              print('Snapshot: ${snapshot.data}');
-              print('Fylke; ${User.getFylke}');
-              print('Kommune; ${User.getKommune}');
-              if (snapshot.connectionState == ConnectionState.done && User.getKommune == '') {
+              var user = snapshot.data;
+              if (snapshot.connectionState == ConnectionState.done && user['fylke'] == null) {
                 return UserInfo();
               } else if (snapshot.connectionState == ConnectionState.waiting )  {
                 return Center();
