@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'package:slugflutter/database/local_db.dart';
-import 'package:slugflutter/database/models/user_model.dart';
 import 'package:sqflite/sqflite.dart';
-
-//TODO: Methods for manipulatin the local DB.
 
 String _dbName = 'slugflutter';
 
@@ -22,6 +19,7 @@ class LocalDBController {
 
   static Future<int> addFinding(int count) async {
     // TODO: ALSO ADD TO THE REMOTE MONGO DB.
+
     final Database db = await LocalDBProvider.db.database;
 
     Map<String, dynamic> _userMap = await LocalDBController.getAllUserData();

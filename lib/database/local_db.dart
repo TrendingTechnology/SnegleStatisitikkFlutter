@@ -20,8 +20,7 @@ class LocalDBProvider {
 
     // if _database is null we instantiate it
     _database = await _initDB();
-    
-    //TODO: Migrate with User before return!
+
     try {
       await _database.insert(_dbName, User.toMap());
       print('Inserted');
