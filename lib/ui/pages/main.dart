@@ -44,7 +44,7 @@ class _MainPageState extends State<MainPage>  {
   }
 
   @override
-  initState() {
+  initState() { // ignore: must_call_super
     var userData = LocalDBController.getAllUserData();
     userData.then((user) async {
       if (user['fylke'] == null) {
