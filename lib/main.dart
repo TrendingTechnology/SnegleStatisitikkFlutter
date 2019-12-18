@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:slugflutter/database/controllers/localDBcontroller.dart';
 import 'package:slugflutter/ui/pages/main.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
 

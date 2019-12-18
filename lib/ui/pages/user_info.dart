@@ -3,8 +3,6 @@ import 'package:slugflutter/database/controllers/localDBcontroller.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
 import 'package:slugflutter/utils/kommuner.dart';
 
-import 'main.dart';
-
 class UserInfoDialog  {
 
   static final ValueNotifier<String> _kommuneHint = ValueNotifier<String>('Velg Kommune');
@@ -78,6 +76,7 @@ class UserInfoDialog  {
                               onChanged: (newValue) {
                                 setState(() {
                                   _selectedKommune = null;
+                                  _kommuneHint.value = 'Velg Kommune';
                                   _selectedFylke = newValue;
                                   _kommuner = kommuner[_selectedFylke];
                                 });

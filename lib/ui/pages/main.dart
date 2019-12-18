@@ -1,7 +1,6 @@
 // To be retrived from DB
 import 'package:flutter/material.dart';
 import 'package:slugflutter/database/controllers/localDBcontroller.dart';
-import 'package:slugflutter/database/models/user_model.dart';
 import 'package:slugflutter/ui/pages/stats.dart';
 import 'package:slugflutter/ui/pages/user_info.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
@@ -45,7 +44,7 @@ class _MainPageState extends State<MainPage>  {
   }
 
   @override
-  void initState() {
+  initState() {
     var userData = LocalDBController.getAllUserData();
     userData.then((user) async {
       if (user['fylke'] == null) {
@@ -175,7 +174,7 @@ class _MainPageState extends State<MainPage>  {
               Row(
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(left: 80.0),
+                    padding: EdgeInsets.only(left: 45.0),
                     child: Builder(
                       builder: (context) => RawMaterialButton(
                         onPressed: () =>
@@ -209,7 +208,7 @@ class _MainPageState extends State<MainPage>  {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 100, left: 50.0),
+                    padding: EdgeInsets.only(top: 80, left: 50.0),
                     child: Builder(
                       builder: (context) => RawMaterialButton(
                         onPressed: () async {
@@ -248,7 +247,7 @@ class _MainPageState extends State<MainPage>  {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(right: 30.0),
+                padding: EdgeInsets.only(right: 40.0),
                 child: Builder(
                   builder: (context) => RawMaterialButton(
                     onPressed: () async {

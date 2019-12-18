@@ -14,7 +14,6 @@ class LocalDBController {
       'UPDATE slugflutter SET fylke = ?, kommune = ? WHERE id = ?',
       [fylke, kommune, 1]
     );
-    print('Updated: $fylke, $kommune');
   }
 
   static Future<int> addFinding(int count) async {
