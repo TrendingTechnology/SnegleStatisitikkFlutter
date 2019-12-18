@@ -1,6 +1,7 @@
 // To be retrived from DB
 import 'package:flutter/material.dart';
 import 'package:slugflutter/database/controllers/localDBcontroller.dart';
+import 'package:slugflutter/database/models/user_model.dart';
 import 'package:slugflutter/ui/pages/stats.dart';
 import 'package:slugflutter/ui/pages/user_info.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
@@ -9,13 +10,15 @@ import 'add_find.dart';
 import 'app_info.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({ Key key }) : super (key: key);
+
+  MainPage({Key key }) : super (key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage>  {
+  _MainPageState();
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +42,21 @@ class _MainPageState extends State<MainPage>  {
         )
       )
     );
+  }
+
+  @override
+  void initState() {
+    var userData = LocalDBController.getAllUserData();
+    userData.then((user) async {
+      if (user['fylke'] == null) {
+        var _submitted = await UserInfoDialog.showUserInfoDialog(context);
+        if (_submitted == true)  {
+          setState(() {
+            
+          });
+        }
+      }
+    });
   }
 
   ListView _pageMainWidget(int totalFinds, int fylkeFindings, int kommuneFindings) {
@@ -194,12 +212,13 @@ class _MainPageState extends State<MainPage>  {
                     padding: EdgeInsets.only(top: 100, left: 50.0),
                     child: Builder(
                       builder: (context) => RawMaterialButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          Navigator.push(
-                            context, 
-                            MaterialPageRoute(builder: (context) => AddFind()),
-                          );
+                        onPressed: () async {
+                          var _submitted = await AddFindDialog.showAddFindDialog(context);
+                          if (_submitted == true)  {
+                            setState(() {
+                              
+                            });
+                          }
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -232,11 +251,14 @@ class _MainPageState extends State<MainPage>  {
                 padding: EdgeInsets.only(right: 30.0),
                 child: Builder(
                   builder: (context) => RawMaterialButton(
-                    onPressed: () =>
-                      Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => UserInfo()),
-                      ),
+                    onPressed: () async {
+                      var _submitted = await UserInfoDialog.showUserInfoDialog(context);
+                      if (_submitted == true)  {
+                        setState(() {
+                          
+                        });
+                      }
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                         boxShadow: [
@@ -264,11 +286,5 @@ class _MainPageState extends State<MainPage>  {
               ),
             ],
           );
-  }
-
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return null;
   }
 }
