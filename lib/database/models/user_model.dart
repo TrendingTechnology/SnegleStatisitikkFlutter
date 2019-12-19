@@ -1,6 +1,6 @@
 //Singleton, only one user in this app locally, no login or users in the backend.
 class User {
-  static final int _id = 1; 
+  static final int _id = 1;
   static String _fylke;
   static String _kommune;
   static int _totalFinds = 0;

@@ -1,18 +1,36 @@
 class Find {
-  String kommune;
-  String fylke;
-  int count;
-  int date;
+  static String kommune;
+  static String fylke;
+  static int count;
+  static String date;
+  static String time;
 
-  Find({this.kommune, this.fylke, this.count, this.date});
+  Find(fylke, kommune, count, date, time);
 
-  Map<String, dynamic> toMap()  {
+  static Map<String, dynamic> toJson()  {
     return {
-      'kommune': kommune,
       'fylke': fylke,
+      'kommune': kommune,
       'count': count,
       'date': date,
+      'time': time
     };
+  }
+
+  static Find fromJson(Map<String, dynamic> find)  {
+    fylke = find['fylke'];
+    kommune = find['kommune'];
+    count = find['antall'];
+    date = find['date'];
+    time = find['time'];
+
+    return Find(
+      kommune,
+      fylke,
+      count,
+      date,
+      time
+    );
   }
 
 }

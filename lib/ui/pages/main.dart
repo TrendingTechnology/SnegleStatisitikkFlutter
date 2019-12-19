@@ -177,11 +177,7 @@ class _MainPageState extends State<MainPage>  {
                     padding: EdgeInsets.only(left: 45.0),
                     child: Builder(
                       builder: (context) => RawMaterialButton(
-                        onPressed: () =>
-                          Navigator.push(
-                            context, 
-                            MaterialPageRoute(builder: (context) => Stats()),
-                          ),   
+                        onPressed: () => StatsDialog.showStatsDialog(context),
                         child: Container(
                           decoration: BoxDecoration(
                             boxShadow: [
