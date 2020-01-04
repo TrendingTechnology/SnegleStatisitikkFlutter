@@ -2,10 +2,17 @@
 class APIController {
   /// Used to add the correct variables to the mutation string addFindingsMutation in [Mutations]
   static Map<String, dynamic> addFinding(String kommune, String fylke, int count)  {
+
+    var _dateNow = DateTime.now();
+    var _date = '${_dateNow.day}/${_dateNow.month}/${_dateNow.year}';
+    var _hour = _dateNow.hour < 10 ? '0${_dateNow.hour}' : '${_dateNow.hour}';
+    var _minutes = _dateNow.minute < 10 ? '0${_dateNow.minute}' : '${_dateNow.minute}';
     return  {
               'kommune': kommune,
               'fylke': fylke,
-              'count': count
+              'count': count,
+              'date': _date,
+              'time': '$_hour:$_minutes'
             };
   }
 

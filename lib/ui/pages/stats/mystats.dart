@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
 import 'package:slugflutter/widgets/round_cancel_button.dart';
 
-class MyStats extends StatelessWidget {
+class MyStats extends StatefulWidget {
 
+  @override
+  _MyStatsState createState() => _MyStatsState();
+}
+
+class _MyStatsState extends State<MyStats> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +35,7 @@ class MyStats extends StatelessWidget {
                 color: CustomTheme.getTheme.textSelectionColor,
               ),
             ),
-            
+            //TODO: Query the Firebase Firestore and display result. Display loading circle while waiting.
           ],
         ),
       ),

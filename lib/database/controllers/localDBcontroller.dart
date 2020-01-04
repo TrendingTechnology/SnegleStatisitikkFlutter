@@ -17,7 +17,6 @@ class LocalDBController {
   }
 
   static Future<int> addFinding(int count) async {
-    // TODO: ALSO ADD TO THE REMOTE MONGO DB.
 
     final Database db = await LocalDBProvider.db.database;
 

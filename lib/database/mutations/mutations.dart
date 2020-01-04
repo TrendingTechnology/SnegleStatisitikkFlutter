@@ -6,11 +6,13 @@ class Mutations {
   /// Adding a finding to the Firebase Firetore
   static DocumentNode addFindingsMutation() {
     return lang.parseString(r"""
-      mutation addSlugFinding($kommune: String!, $fylke: String!, $count: Int!){
+      mutation addSlugFinding($kommune: String!, $fylke: String!, $count: Int!, $date: String!, $time: String!){
         addSlugfinding(
           kommune: $kommune,
           fylke: $fylke,
-          count: $count
+          count: $count,
+          date: $date,
+          time: $time
         ) 
         { 
           kommune

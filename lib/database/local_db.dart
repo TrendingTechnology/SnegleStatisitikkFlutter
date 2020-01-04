@@ -34,6 +34,7 @@ class LocalDBProvider {
   _initDB() async {
     return await openDatabase(join(await getDatabasesPath(), 'local_db.db'), onCreate: (Database db, int version) async {
         await db.execute(
+          // replace fylke and kommune with SlufFinding object.
           'CREATE TABLE slugflutter(id INTEGER PRIMARY KEY, fylke TEXT, kommune TEXT, totalFinds INTEGER, lastFind INTEGER, maxFind INTEGER)',
           );
       },
