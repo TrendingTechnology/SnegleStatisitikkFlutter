@@ -5,7 +5,7 @@ class APIController {
 
     var _dateNow = DateTime.now();
     var _date = '${_dateNow.day}/${_dateNow.month}/${_dateNow.year}';
-    var _hour = _dateNow.hour < 10 ? '0${_dateNow.hour}' : '${_dateNow.hour}';
+    var _hour = _dateNow.hour < 10 ? '0${_dateNow.hour + 1}' : '${_dateNow.hour + 1}';
     var _minutes = _dateNow.minute < 10 ? '0${_dateNow.minute}' : '${_dateNow.minute}';
     return  {
               'kommune': kommune,

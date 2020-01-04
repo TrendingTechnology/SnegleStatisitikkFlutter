@@ -93,7 +93,7 @@ class AddFindDialog  {
                               APIController.addFinding(
                                 _kommune, 
                                 _fylke, 
-                                int.parse(_formController.text)
+                                int.parse(_formController.text),
                               )
                             );
 
@@ -113,6 +113,7 @@ class AddFindDialog  {
                         onCompleted: (result) => {
                           // If the result from the mutation != null, add to local DB.
                           if (result != null) {
+                            print(result),
                             LocalDBController.addFinding(int.parse(_formController.text))
                             .then((newTotalFinding) {
                               _formController.text = '';
