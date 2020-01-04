@@ -14,13 +14,16 @@ description: Flutter project to get statistics about slug findings in Norway.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   sqflite: ^1.1.8 
   path: ^1.6.4
+  graphql_flutter: ^2.1.1-beta.5
+  flutter_dotenv: ^2.1.0
+
   
 
 dev_dependencies:

@@ -1,10 +1,12 @@
 // Controller to mutate and query a MongoDB with graphql
 
-import 'package:slugflutter/database/models/find_model.dart';
-
 class APIController {
-  static addFinding(Find find)  {
-
+  static Map<String, dynamic> addFinding(String kommune, String fylke, int count)  {
+    return  {
+              'kommune': kommune,
+              'fylke': fylke,
+              'count': count
+            };
   }
 
   static queryFindingByFylke(String fylke) {

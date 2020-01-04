@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:slugflutter/ui/pages/main.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,14 +14,29 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Slug stat app',
-      home: Scaffold(
-        backgroundColor: CustomTheme.getTheme.backgroundColor,
-        body: MainPage()
+    final HttpLink httpLink = HttpLink(uri: "http://178.128.254.188/api");
+
+    final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
+      GraphQLClient(
+        cache: InMemoryCache(),
+        link: httpLink,
+      ),
+    );
+
+    return GraphQLProvider(
+      client: client,
+      child: CacheProvider(
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Slug stat app',
+          home: Scaffold(
+            backgroundColor: CustomTheme.getTheme.backgroundColor,
+            body: MainPage()
+          ),
+        ),
       ),
     );
   }

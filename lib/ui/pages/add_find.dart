@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:slugflutter/database/controllers/APIcontroller.dart';
 import 'package:slugflutter/database/controllers/localDBcontroller.dart';
+import 'package:slugflutter/database/mutations/mutations.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
 
 class AddFindDialog  {
 
   static final _number = GlobalKey<FormState>();
   static final _formController = TextEditingController();
+  static var _kommune = '';
+  static var _fylke = '';
 
-  static Future<bool> showAddFindDialog(BuildContext context) {
+  static Future<bool> showAddFindDialog(BuildContext context) async {
+
+    // Getting the User location from SQLite
+    LocalDBController.getUserLocation()
+    .then((value) => {
+      _kommune = value[0]['kommune'],
+      _fylke = value[0]['fylke']
+    })
+    .catchError((err) => print(err));
+
     return showDialog(
       barrierDismissible: false,
       context: context, 
@@ -63,25 +77,49 @@ class AddFindDialog  {
                 child:Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    RawMaterialButton(
-                      onPressed: () {
-                        if (!isNumeric(_formController.text)) {
-                          return;
-                        }
-                        var test = LocalDBController.addFinding(int.parse(_formController.text));
-                        test.then((newTotalFinding) {
-                          _formController.text = '';
-                          Navigator.of(context).pop(true);
-                        });
+                    Mutation(
+                      builder: (
+                        RunMutation runMutation, 
+                        QueryResult result) 
+                        {
+                        
+                        return RawMaterialButton(
+                          onPressed: () async {
+                            if (!isNumeric(_formController.text)) {
+                              return;
+                            }
+
+                            runMutation(APIController.addFinding(
+                              _kommune, 
+                              _fylke, 
+                              int.parse(_formController.text))
+                            );
+
+                          },
+                          child: Container( 
+                            child: Image(
+                              image: AssetImage('assets/buttons/check_button.png'),
+                              width: 65.0,
+                              height: 65.0,
+                            ),
+                          ),
+                          shape: CircleBorder(),
+                        );
                       },
-                      child: Container( 
-                        child: Image(
-                          image: AssetImage('assets/buttons/check_button.png'),
-                          width: 65.0,
-                          height: 65.0,
-                        ),
+                      options: MutationOptions(
+                        documentNode: Mutations.addFindingsMutation(),
+                        onCompleted: (result) => {
+                          // If the result from the mutation != null, add to local DB.
+                          if (result != null) {
+                            LocalDBController.addFinding(int.parse(_formController.text))
+                            .then((newTotalFinding) {
+                              _formController.text = '';
+                              Navigator.of(context).pop(true);
+                            })
+                          }
+                        }, 
+                        onError: (_) => null, // If error, popup to user that an error has occured and what error it is.
                       ),
-                      shape: CircleBorder(),
                     ),
                     RawMaterialButton(
                       onPressed: () {
