@@ -3,7 +3,9 @@ import 'package:slugflutter/ui/pages/main.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-void main() => runApp(MyApp());
+var _uri = 'http://178.128.254.188/api';
+
+void main() async => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   const MyApp({ Key key}) : super (key: key);
@@ -14,10 +16,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  
+
   @override
   Widget build(BuildContext context) {
-    final HttpLink httpLink = HttpLink(uri: "http://178.128.254.188/api");
+    final HttpLink httpLink = HttpLink(
+      uri: _uri
+    );
 
     final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
       GraphQLClient(

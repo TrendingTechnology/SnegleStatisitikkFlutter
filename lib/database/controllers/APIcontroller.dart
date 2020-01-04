@@ -1,6 +1,6 @@
-// Controller to mutate and query a MongoDB with graphql
-
+/// Controller to mutate and query a MongoDB with graphql
 class APIController {
+  /// Used to add the correct variables to the mutation string addFindingsMutation in [Mutations]
   static Map<String, dynamic> addFinding(String kommune, String fylke, int count)  {
     return  {
               'kommune': kommune,

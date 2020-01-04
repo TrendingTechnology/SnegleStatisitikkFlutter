@@ -1,4 +1,20 @@
-Map<String, List<String>> kommuner = {
+library fylker_og_kommuner;
+
+const List<String> fylker = [
+    'Agder',
+    'Innlandet',
+    'Møre og Romsdal',
+    'Nordland',
+    'Oslo',
+    'Rogaland',
+    'Telemark og Vestfold',
+    'Troms og Finnmark',
+    'Trøndelag',
+    'Vestland',
+    'Viken',
+    ]; 
+
+const Map<String, List<String>> kommuner = {
   'Agder': [
     'Arendal',
     'Birkenes',

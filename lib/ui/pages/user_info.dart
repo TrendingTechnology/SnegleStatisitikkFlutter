@@ -1,24 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:slugflutter/database/controllers/localDBcontroller.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
-import 'package:slugflutter/utils/kommuner.dart';
+import 'package:slugflutter/utils/fylker_og_kommuner.dart' as KommunerOgFylker;
 
 class UserInfoDialog  {
 
   static final ValueNotifier<String> _kommuneHint = ValueNotifier<String>('Velg Kommune');
-  static List<String> _fylker = [
-    'Agder',
-    'Innlandet',
-    'Møre og Romsdal',
-    'Nordland',
-    'Oslo',
-    'Rogaland',
-    'Telemark og Vestfold',
-    'Troms og Finnmark',
-    'Trøndelag',
-    'Vestland',
-    'Viken',
-    ]; 
+  static List<String> _fylker = KommunerOgFylker.fylker;
   static List<String> _kommuner = []; // Gets initialized when fylke has been chosen
   static String _selectedFylke;
   static String _selectedKommune;
@@ -78,7 +66,7 @@ class UserInfoDialog  {
                                   _selectedKommune = null;
                                   _kommuneHint.value = 'Velg Kommune';
                                   _selectedFylke = newValue;
-                                  _kommuner = kommuner[_selectedFylke];
+                                  _kommuner = KommunerOgFylker.kommuner[_selectedFylke];
                                 });
                               },
                               items: _fylker.map((fylke) {

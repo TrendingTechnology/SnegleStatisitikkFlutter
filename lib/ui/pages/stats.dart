@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:slugflutter/main.dart';
 import 'package:slugflutter/ui/pages/stats/mystats.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
-
 
 class StatsDialog  {
 

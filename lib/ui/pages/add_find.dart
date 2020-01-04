@@ -89,10 +89,12 @@ class AddFindDialog  {
                               return;
                             }
 
-                            runMutation(APIController.addFinding(
-                              _kommune, 
-                              _fylke, 
-                              int.parse(_formController.text))
+                            runMutation(
+                              APIController.addFinding(
+                                _kommune, 
+                                _fylke, 
+                                int.parse(_formController.text)
+                              )
                             );
 
                           },
@@ -118,7 +120,7 @@ class AddFindDialog  {
                             })
                           }
                         }, 
-                        onError: (_) => null, // If error, popup to user that an error has occured and what error it is.
+                        onError: (_) => null, // TODO: If error, popup to user that an error has occured and what error it is.
                       ),
                     ),
                     RawMaterialButton(

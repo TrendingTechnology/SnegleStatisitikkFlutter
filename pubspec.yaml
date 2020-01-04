@@ -22,9 +22,6 @@ dependencies:
   sqflite: ^1.1.8 
   path: ^1.6.4
   graphql_flutter: ^2.1.1-beta.5
-  flutter_dotenv: ^2.1.0
-
-  
 
 dev_dependencies:
   flutter_test:
