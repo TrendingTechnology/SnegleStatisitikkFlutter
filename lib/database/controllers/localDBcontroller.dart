@@ -46,6 +46,7 @@ class LocalDBController {
     await db.insert(_findingsTable, {'find': count, 'date': _date, 'time': _time});
   }
 
+  /// Resturns simple stats like maxfind, total found, last found and also fylke and kommune.
   static Future<Map<String, dynamic>> getAllSimpleUserData() async {
     final Database db = await LocalDBProvider.db.database;
 
@@ -53,14 +54,14 @@ class LocalDBController {
     final List<Map<String, dynamic>> userListMap = await db.query(_userTable);
 
     //Since only one user in DB, extract that user.
-    Map<String, dynamic> _userMap;
-    userListMap.forEach((user) => _userMap = user);
+    Map<String, dynamic> _userMap = userListMap[0];
 
     print('User: $_userMap');
     // Return all the data from the DB as a map.
     return _userMap;
   }
 
+  /// Returns the user choosen location, fylke and kommune.
   static Future<List<Map<String, dynamic>>> getUserLocation() async {
     final Database db = await LocalDBProvider.db.database;
 
@@ -68,16 +69,13 @@ class LocalDBController {
     return await db.rawQuery('SELECT fylke, kommune FROM $_userTable');
   }
 
+  /// Returns all the findings done by the user. Saved locally.
   static Future<List<Map<String, dynamic>>> getAllUserFindings() async  {
     final Database db = await LocalDBProvider.db.database;
 
     final List<Map<String, dynamic>> _findingsListMap = await db.query(_findingsTable);
 
     return _findingsListMap;
-  }
-
-  static Future<List<Map<String, dynamic>>> getAllUserData() async {
-    //TODO: Return all findings and simple user data to be used in the myStats page.
   }
 
 }

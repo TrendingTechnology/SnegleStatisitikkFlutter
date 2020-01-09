@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:slugflutter/database/controllers/APIcontroller.dart';
 import 'package:slugflutter/database/controllers/localDBcontroller.dart';
+import 'package:slugflutter/database/models/user_model.dart';
 import 'package:slugflutter/database/queries/queries.dart';
 import 'package:slugflutter/ui/pages/stats.dart';
 import 'package:slugflutter/ui/pages/user_info.dart';
@@ -22,9 +23,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage>  {
   _MainPageState();
 
-  static String _kommune;
-  static String _fylke;
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,8 +37,7 @@ class _MainPageState extends State<MainPage>  {
               // TODO: Get Kommune and fylke stats to render!
               if (snapshot.connectionState == ConnectionState.done) {
                 var user = snapshot.data;
-                _kommune = user['kommune'];
-                _fylke = user['fylke'];
+                User.fromMap(user);
                 return _pageMainWidget(user['totalFinds'], 0, 0);
               }
               return Center();

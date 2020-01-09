@@ -26,14 +26,12 @@ class User {
     };
   }
 
-  static User fromMap(Map<String, dynamic> userMap)  {
+  static fromMap(Map<String, dynamic> userMap)  {
     _fylke = userMap['fylke'];
     _kommune = userMap['kommune'];
     _totalFinds = userMap['totalFinds'];
     _lastFind = userMap['lastFind'];
     _maxFind = userMap['maxFind'];
-
-    return _userSingleton;
   }
 
   @override

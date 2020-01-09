@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:slugflutter/database/controllers/APIcontroller.dart';
 import 'package:slugflutter/database/controllers/localDBcontroller.dart';
 import 'package:slugflutter/database/models/user_model.dart';
+import 'package:slugflutter/database/queries/queries.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
 import 'package:slugflutter/widgets/round_cancel_button.dart';
 
@@ -20,21 +23,22 @@ class _MyStatsState extends State<MyStats> {
 
   @override
   Widget build(BuildContext context) {
-
-    // Get all local data
-
     return FutureBuilder(
-      future: LocalDBController.getAllSimpleUserData(),
+      future: Future.wait([
+        LocalDBController.getAllSimpleUserData(), 
+        LocalDBController.getAllUserFindings()
+      ]),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          var user = snapshot.data;
+          var user = snapshot.data[0];
           _lastFind = user['lastFind'];
-
           _maxFind = user['maxFind'];
-          print('Data Loaded');
+          List<Map<String, dynamic>> findings = snapshot.data[1];
+          print(findings);
+          //TODO: Sort findings by count, get the date of the highest count and save it to _dateMostFound
+          //TODO: Add up all the counts and devide by findings.length and save to _averageFind
           return _myStats(user);
         }
-        print('Loading...');
         return CircularProgressIndicator(
           backgroundColor: Colors.cyan,
           strokeWidth: 5,
