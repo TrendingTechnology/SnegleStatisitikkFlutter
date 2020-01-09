@@ -9,8 +9,11 @@ class AddFindDialog  {
 
   static final _number = GlobalKey<FormState>();
   static final _formController = TextEditingController();
-  static var _kommune = '';
-  static var _fylke = '';
+  static String _kommune = '';
+  static String _fylke = '';
+  // Booleans to prevent multiple entries to DB and calls to API if someine press the "Add" button more than once.
+  static bool _pressedOnce;
+  static bool _insertedToLocalDB;
 
   static Future<bool> showAddFindDialog(BuildContext context) async {
 
@@ -18,7 +21,9 @@ class AddFindDialog  {
     LocalDBController.getUserLocation()
     .then((value) => {
       _kommune = value[0]['kommune'],
-      _fylke = value[0]['fylke']
+      _fylke = value[0]['fylke'],
+      _pressedOnce = false,
+      _insertedToLocalDB = false
     })
     .catchError((err) => print(err));
 
@@ -88,15 +93,16 @@ class AddFindDialog  {
                             if (!isNumeric(_formController.text)) {
                               return;
                             }
-
-                            runMutation(
-                              APIController.addFinding(
-                                _kommune, 
-                                _fylke, 
-                                int.parse(_formController.text),
-                              )
-                            );
-
+                            if (!_pressedOnce)  {
+                              _pressedOnce = true;
+                              runMutation(
+                                APIController.addFinding(
+                                  _kommune, 
+                                  _fylke, 
+                                  int.parse(_formController.text),
+                                )
+                              );
+                            }
                           },
                           child: Container( 
                             child: Image(
@@ -112,10 +118,10 @@ class AddFindDialog  {
                         documentNode: Mutations.addFindingsMutation(),
                         onCompleted: (result) => {
                           // If the result from the mutation != null, add to local DB.
-                          if (result != null) {
-                            print(result),
+                          if (result != null && !_insertedToLocalDB) {
                             LocalDBController.addFinding(int.parse(_formController.text))
                             .then((newTotalFinding) {
+                              _insertedToLocalDB = true;
                               _formController.text = '';
                               Navigator.of(context).pop(true);
                             })

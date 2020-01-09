@@ -2,7 +2,8 @@ import 'dart:async';
 import 'package:slugflutter/database/local_db.dart';
 import 'package:sqflite/sqflite.dart';
 
-String _dbName = 'slugflutter';
+String _userTable = 'slugflutter';
+String _findingsTable = 'findings';
 
 class LocalDBController {
 
@@ -11,16 +12,22 @@ class LocalDBController {
 
     // Update user location in DB.
     await db.rawUpdate(
-      'UPDATE slugflutter SET fylke = ?, kommune = ? WHERE id = ?',
+      'UPDATE $_userTable SET fylke = ?, kommune = ? WHERE id = ?',
       [fylke, kommune, 1]
     );
   }
 
-  static Future<int> addFinding(int count) async {
+  static Future<void> addFinding(int count) async {
+
+    var _dateNow = DateTime.now();
+    var _date = '${_dateNow.day}.${_dateNow.month}.${_dateNow.year}';
+    var _hour = _dateNow.hour + 1 < 10 ? '0${_dateNow.hour + 1}' : '${_dateNow.hour + 1}'; //  +1 to correct from UTC time.
+    var _minutes = _dateNow.minute < 10 ? '0${_dateNow.minute}' : '${_dateNow.minute}';
+    var _time = '$_hour:$_minutes';
 
     final Database db = await LocalDBProvider.db.database;
 
-    Map<String, dynamic> _userMap = await LocalDBController.getAllUserData();
+    Map<String, dynamic> _userMap = await LocalDBController.getAllSimpleUserData();
 
     int _oldTotalFinds = await _userMap['totalFinds'] ;
     int _oldMaxFind = await _userMap['maxFind'];
@@ -32,17 +39,18 @@ class LocalDBController {
 
     // Update local DB.
     await db.rawUpdate(
-    'UPDATE slugflutter SET totalFinds = ?, lastFind = ?, maxFind = ? WHERE id = ?',
-    [_newTotalFinds, _newLastFind, _newMaxFind, 1]);
+      'UPDATE $_userTable SET totalFinds = ?, lastFind = ?, maxFind = ? WHERE id = ?',
+      [_newTotalFinds, _newLastFind, _newMaxFind, 1]
+    );
 
-    return _newTotalFinds;
+    await db.insert(_findingsTable, {'find': count, 'date': _date, 'time': _time});
   }
 
-  static Future<Map<String, dynamic>> getAllUserData() async {
+  static Future<Map<String, dynamic>> getAllSimpleUserData() async {
     final Database db = await LocalDBProvider.db.database;
 
     // Query data from the DB
-    final List<Map<String, dynamic>> userListMap = await db.query(_dbName);
+    final List<Map<String, dynamic>> userListMap = await db.query(_userTable);
 
     //Since only one user in DB, extract that user.
     Map<String, dynamic> _userMap;
@@ -57,7 +65,19 @@ class LocalDBController {
     final Database db = await LocalDBProvider.db.database;
 
     // Query data from the DB
-    return await db.rawQuery('SELECT fylke, kommune FROM slugflutter');
+    return await db.rawQuery('SELECT fylke, kommune FROM $_userTable');
+  }
+
+  static Future<List<Map<String, dynamic>>> getAllUserFindings() async  {
+    final Database db = await LocalDBProvider.db.database;
+
+    final List<Map<String, dynamic>> _findingsListMap = await db.query(_findingsTable);
+
+    return _findingsListMap;
+  }
+
+  static Future<List<Map<String, dynamic>>> getAllUserData() async {
+    //TODO: Return all findings and simple user data to be used in the myStats page.
   }
 
 }

@@ -1,6 +1,9 @@
 // To be retrived from DB
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:slugflutter/database/controllers/APIcontroller.dart';
 import 'package:slugflutter/database/controllers/localDBcontroller.dart';
+import 'package:slugflutter/database/queries/queries.dart';
 import 'package:slugflutter/ui/pages/stats.dart';
 import 'package:slugflutter/ui/pages/user_info.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
@@ -19,6 +22,9 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage>  {
   _MainPageState();
 
+  static String _kommune;
+  static String _fylke;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,11 +34,13 @@ class _MainPageState extends State<MainPage>  {
         backgroundColor: CustomTheme.getTheme.backgroundColor,
         body: Center(
           child: FutureBuilder(
-            future: LocalDBController.getAllUserData(),
+            future: LocalDBController.getAllSimpleUserData(),
             builder: (context, snapshot) {
               // TODO: Get Kommune and fylke stats to render!
               if (snapshot.connectionState == ConnectionState.done) {
                 var user = snapshot.data;
+                _kommune = user['kommune'];
+                _fylke = user['fylke'];
                 return _pageMainWidget(user['totalFinds'], 0, 0);
               }
               return Center();
@@ -45,7 +53,7 @@ class _MainPageState extends State<MainPage>  {
 
   @override
   initState() { // ignore: must_call_super
-    var userData = LocalDBController.getAllUserData();
+    var userData = LocalDBController.getAllSimpleUserData();
     userData.then((user) async {
       if (user['fylke'] == null) {
         var _submitted = await UserInfoDialog.showUserInfoDialog(context);
@@ -129,7 +137,7 @@ class _MainPageState extends State<MainPage>  {
                   ),
                   Container(
                     padding: const EdgeInsets.only(top: 5.0, right: 50.0),
-                    child: Text('$kommuneFindings',
+                    child: Text('0',
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -137,7 +145,6 @@ class _MainPageState extends State<MainPage>  {
                       ),
                     ),
                   ),
-
                 ],
               ),
               Padding(
