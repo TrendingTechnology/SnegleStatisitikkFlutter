@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:slugflutter/database/local_db.dart';
+import 'package:slugflutter/database/models/user_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 String _userTable = 'slugflutter';
@@ -46,7 +47,7 @@ class LocalDBController {
     await db.insert(_findingsTable, {'find': count, 'date': _date, 'time': _time});
   }
 
-  /// Resturns simple stats like maxfind, total found, last found and also fylke and kommune.
+  /// Returns simple stats like maxfind, total found, last found and also fylke and kommune. Also saves all the queried data to the User singleton
   static Future<Map<String, dynamic>> getAllSimpleUserData() async {
     final Database db = await LocalDBProvider.db.database;
 
@@ -55,6 +56,7 @@ class LocalDBController {
 
     //Since only one user in DB, extract that user.
     Map<String, dynamic> _userMap = userListMap[0];
+    User.fromMap(_userMap);
 
     print('User: $_userMap');
     // Return all the data from the DB as a map.

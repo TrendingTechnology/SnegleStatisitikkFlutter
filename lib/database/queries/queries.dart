@@ -3,7 +3,7 @@ import "package:gql/language.dart" as lang;
 
 /// Querie strings to do queries on the Firebase Firestore
 class Queries {
-  static DocumentNode getSlugfindingByKommune() {
+  static DocumentNode getSlugfindingsByKommune() {
     return lang.parseString(r"""
       query getSlugfindingByKommune($kommune: String!){
         getSlugfindingsByKommune(kommune: $kommune)	{
@@ -13,7 +13,7 @@ class Queries {
     """);
   }
 
-  static DocumentNode getSlugfindingByFylke() {
+  static DocumentNode getSlugfindingsByFylke() {
     return lang.parseString(r"""
       query getSlugfindingByFylke($fylke: String!){
         getSlugfindingsByFylke(fylke: $fylke)	{

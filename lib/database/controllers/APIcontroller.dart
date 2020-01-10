@@ -7,13 +7,13 @@ class APIController {
     var _date = '${_dateNow.day}.${_dateNow.month}.${_dateNow.year}';
     var _hour = _dateNow.hour + 1 < 10 ? '0${_dateNow.hour + 1}' : '${_dateNow.hour + 1}'; //  +1 to correct from UTC time.
     var _minutes = _dateNow.minute < 10 ? '0${_dateNow.minute}' : '${_dateNow.minute}';
-    return  {
+    return  { 
               'kommune': kommune,
               'fylke': fylke,
               'count': count,
               'date': _date,
               'time': '$_hour:$_minutes'
-            };
+            };  
   }
 
   static queryFindingByFylke(String fylke) {

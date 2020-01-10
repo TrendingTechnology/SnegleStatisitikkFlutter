@@ -1,10 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:slugflutter/database/controllers/APIcontroller.dart';
 import 'package:slugflutter/database/controllers/localDBcontroller.dart';
-import 'package:slugflutter/database/models/user_model.dart';
-import 'package:slugflutter/database/queries/queries.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
 import 'package:slugflutter/widgets/round_cancel_button.dart';
 
@@ -17,7 +13,7 @@ class MyStats extends StatefulWidget {
 class _MyStatsState extends State<MyStats> {
 
   static int _lastFind;
-  static int _averageFind;
+  static int _averageFind = 0;
   static String _dateMostFound;
   static int _maxFind;
 
@@ -33,11 +29,11 @@ class _MyStatsState extends State<MyStats> {
           var user = snapshot.data[0];
           _lastFind = user['lastFind'];
           _maxFind = user['maxFind'];
-          List<Map<String, dynamic>> findings = snapshot.data[1];
-          print(findings);
-          //TODO: Sort findings by count, get the date of the highest count and save it to _dateMostFound
-          //TODO: Add up all the counts and devide by findings.length and save to _averageFind
-          return _myStats(user);
+          List<Map<String, dynamic>> findings = List<Map<String, dynamic>>.from(snapshot.data[1]); //Make new list so that it may be sorted.
+          findings.sort((a, b) => b["find"].compareTo(a["find"])); // Sort list of findings by number of findings in decending order.
+          _dateMostFound = findings[0]['date']; // After sort, assign the date of the highest value to _dateMostFound 
+          _averageFind = (user['totalFinds']/findings.length).floor();
+          return _myStats();
         }
         return CircularProgressIndicator(
           backgroundColor: Colors.cyan,
@@ -47,7 +43,7 @@ class _MyStatsState extends State<MyStats> {
     );
   }
 
-  Widget _myStats(var user) {
+  Widget _myStats() {
     return Scaffold(
       backgroundColor: CustomTheme.getTheme.backgroundColor,
       body: Center(  
@@ -102,7 +98,7 @@ class _MyStatsState extends State<MyStats> {
             ),
             Padding(
               padding: EdgeInsets.only(top: 10, bottom: 20),
-              child: Text("34",
+              child: Text("$_averageFind",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 30,
@@ -122,7 +118,7 @@ class _MyStatsState extends State<MyStats> {
             ),
             Padding(
               padding: EdgeInsets.only(top: 10, bottom: 20),
-              child: Text("12.02.2019",
+              child: Text("$_dateMostFound",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 30,
