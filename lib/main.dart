@@ -35,10 +35,11 @@ class _MyAppState extends State<MyApp> {
       child: CacheProvider(
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Slug stat app',
-          home: Scaffold(
-            backgroundColor: CustomTheme.getTheme.backgroundColor,
-            body: MainPage()
+          home: SafeArea(
+            child: Scaffold(
+              backgroundColor: CustomTheme.getTheme.backgroundColor,
+              body: MainPage()
+            ),
           ),
         ),
       ),

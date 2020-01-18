@@ -3,7 +3,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:slugflutter/database/controllers/APIcontroller.dart';
 import 'package:slugflutter/database/controllers/localDBcontroller.dart';
 import 'package:slugflutter/database/models/user_model.dart';
 import 'package:slugflutter/database/queries/queries.dart';
@@ -28,29 +27,21 @@ class _MainPageState extends State<MainPage>  {
   @override
   Widget build(BuildContext context) {
     //TODO: Stop calling .getAllSimpleUserData every build. Only needed when User Location has changed.
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Slug stat app',
-      home: Scaffold(
-        backgroundColor: CustomTheme.getTheme.backgroundColor,
-        body: Center(
-          child: FutureBuilder(
-            future: LocalDBController.getAllSimpleUserData(),
-            builder: (context, snapshot) {
-              // TODO: Get Kommune and fylke stats to render!
-              if (snapshot.connectionState == ConnectionState.done) {
-                var user = snapshot.data;
-                User.fromMap(user);
-                return _pageMainWidget();
-              }
-              return CircularProgressIndicator(
-                backgroundColor: CustomTheme.getTheme.backgroundColor,
-                valueColor: AlwaysStoppedAnimation<Color>(CustomTheme.getTheme.textSelectionColor),
-              );
-            },
+    return FutureBuilder(
+      future: LocalDBController.getAllSimpleUserData(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          var user = snapshot.data;
+          User.fromMap(user);
+          return _pageMainWidget();
+        }
+        return Center(
+          child: CircularProgressIndicator(
+            backgroundColor: CustomTheme.getTheme.backgroundColor,
+            valueColor: AlwaysStoppedAnimation<Color>(CustomTheme.getTheme.textSelectionColor),
           )
-        )
-      )
+        );
+      },
     );
   }
 
@@ -211,7 +202,7 @@ class _MainPageState extends State<MainPage>  {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 80, left: 50.0),
+                padding: EdgeInsets.only(top: 80, left: 90.0),
                 child: Builder(
                   builder: (context) => RawMaterialButton(
                     onPressed: () async {
@@ -250,7 +241,7 @@ class _MainPageState extends State<MainPage>  {
             ],
           ),
           Padding(
-            padding: EdgeInsets.only(right: 40.0),
+            padding: EdgeInsets.only(right: 20.0),
             child: Builder(
               builder: (context) => RawMaterialButton(
                 onPressed: () async {
@@ -316,7 +307,7 @@ class _MainPageState extends State<MainPage>  {
           }
         }
         if (result.loading) {
-          return Text('Loading...',
+          return Text('Laster...',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -359,7 +350,7 @@ class _MainPageState extends State<MainPage>  {
           }
         }
         if (result.loading) {
-          return Text('Loading...',
+          return Text('Laster...',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
