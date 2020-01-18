@@ -6,11 +6,10 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:slugflutter/database/controllers/localDBcontroller.dart';
 import 'package:slugflutter/database/models/user_model.dart';
 import 'package:slugflutter/database/queries/queries.dart';
-import 'package:slugflutter/ui/pages/stats.dart';
-import 'package:slugflutter/ui/pages/user_info.dart';
+import 'package:slugflutter/ui/dialogs/stats.dart';
+import 'package:slugflutter/ui/dialogs/user_info.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
-
-import 'add_find.dart';
+import 'package:slugflutter/ui/dialogs/add_find.dart';
 import 'app_info.dart';
 
 class MainPage extends StatefulWidget {
@@ -52,6 +51,7 @@ class _MainPageState extends State<MainPage>  {
       if (user['fylke'] == null) {
         var _submitted = await UserInfoDialog.showUserInfoDialog(context);
         if (_submitted == true)  {
+
           setState(() {
             
           });
@@ -181,11 +181,11 @@ class _MainPageState extends State<MainPage>  {
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black54,
-                            blurRadius: 20.0, // has the effect of softening the shadow
-                            spreadRadius: 5.0, // has the effect of extending the shadow
+                            blurRadius: 20.0,
+                            spreadRadius: 5.0, 
                             offset: Offset(
-                              10.0, // horizontal, move right 10
-                              10.0, // vertical, move down 10
+                              10.0,
+                              10.0,
                             ),
                           ),
                         ],
