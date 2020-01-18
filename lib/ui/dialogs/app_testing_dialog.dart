@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:slugflutter/ui/pages/stats/mystats.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
 
-class StatsDialog  {
-
-  static Future<bool> showStatsDialog(BuildContext context) {
+class TestingDialog {
+  static Future<bool> showTestDialog(BuildContext context)  {
     return showDialog(
-      barrierDismissible: false,
-      context: context, 
-      builder: (context) {
-        return AlertDialog(
+      context: context,
+      builder: (context) => AlertDialog(
         backgroundColor: CustomTheme.getTheme.dialogBackgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20)),
-        title: Text('Statistikk',
+        title: Text('App under testing',
           style: TextStyle(
             color: Colors.white,
             fontSize: 30.0
@@ -26,29 +22,12 @@ class StatsDialog  {
               Divider(
                 color: Colors.white,
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 30, bottom: 20),
-                child: FlatButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(45),
-                    side: BorderSide(color: Colors.white)
-                  ),
+              Text('App under testing,\nalle databaser vil bli\nslettet 1. mars 2020!',
+                style: TextStyle(
                   color: Colors.white,
-                  child: Text(
-                    'Min statistikk',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      color: CustomTheme.getTheme.dialogBackgroundColor,
-                    ),
-                    textAlign: TextAlign.center,
+                  fontSize: 20.0
                   ),
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => MyStats()
-                      ),
-                    );
-                  },
-                ),
+                textAlign: TextAlign.center,
               ),
               Padding(
                 padding: EdgeInsets.only(top: 30),
@@ -66,10 +45,10 @@ class StatsDialog  {
                   shape: CircleBorder(),
                 ),
               )
-            ],
+            ], 
           ),
         ),
-      );
-    });
+      )
+    );
   }
 }

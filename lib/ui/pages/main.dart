@@ -6,6 +6,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:slugflutter/database/controllers/localDBcontroller.dart';
 import 'package:slugflutter/database/models/user_model.dart';
 import 'package:slugflutter/database/queries/queries.dart';
+import 'package:slugflutter/ui/dialogs/app_testing_dialog.dart';
 import 'package:slugflutter/ui/dialogs/stats.dart';
 import 'package:slugflutter/ui/dialogs/user_info.dart';
 import 'package:slugflutter/ui/themes/theme.dart';
@@ -45,17 +46,22 @@ class _MainPageState extends State<MainPage>  {
   }
 
   @override
-  initState() { // ignore: must_call_super
+  initState() { 
+    super.initState();
+    
     var userData = LocalDBController.getAllSimpleUserData();
     userData.then((user) async {
       if (user['fylke'] == null) {
         var _submitted = await UserInfoDialog.showUserInfoDialog(context);
         if (_submitted == true)  {
-
+          
           setState(() {
             
           });
         }
+      }
+      else {
+        TestingDialog.showTestDialog(context);
       }
     });
   }
