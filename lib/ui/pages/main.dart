@@ -54,7 +54,7 @@ class _MainPageState extends State<MainPage>  {
       if (user['fylke'] == null) {
         var _submitted = await UserInfoDialog.showUserInfoDialog(context);
         if (_submitted == true)  {
-          
+          TestingDialog.showTestDialog(context);
           setState(() {
             
           });
