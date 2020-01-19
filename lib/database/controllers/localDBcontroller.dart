@@ -3,8 +3,8 @@ import 'package:slugflutter/database/local_db.dart';
 import 'package:slugflutter/database/models/user_model.dart';
 import 'package:sqflite/sqflite.dart';
 
-String _userTable = 'slugflutter';
-String _findingsTable = 'findings';
+String _userTestTable = 'slugflutterTest';
+String _findingsTestTable = 'findingsTest';
 
 class LocalDBController {
 
@@ -13,7 +13,7 @@ class LocalDBController {
 
     // Update user location in DB.
     await db.rawUpdate(
-      'UPDATE $_userTable SET fylke = ?, kommune = ? WHERE id = ?',
+      'UPDATE $_userTestTable SET fylke = ?, kommune = ? WHERE id = ?',
       [fylke, kommune, 1]
     );
   }
@@ -40,11 +40,11 @@ class LocalDBController {
 
     // Update local DB.
     await db.rawUpdate(
-      'UPDATE $_userTable SET totalFinds = ?, lastFind = ?, maxFind = ? WHERE id = ?',
+      'UPDATE $_userTestTable SET totalFinds = ?, lastFind = ?, maxFind = ? WHERE id = ?',
       [_newTotalFinds, _newLastFind, _newMaxFind, 1]
     );
 
-    await db.insert(_findingsTable, {'find': count, 'date': _date, 'time': _time});
+    await db.insert(_findingsTestTable, {'find': count, 'date': _date, 'time': _time});
   }
 
   /// Returns simple stats like maxfind, total found, last found and also fylke and kommune. Also saves all the queried data to the User singleton
@@ -52,7 +52,7 @@ class LocalDBController {
     final Database db = await LocalDBProvider.db.database;
 
     // Query data from the DB
-    final List<Map<String, dynamic>> userListMap = await db.query(_userTable);
+    final List<Map<String, dynamic>> userListMap = await db.query(_userTestTable);
 
     //Since only one user in DB, extract that user.
     Map<String, dynamic> _userMap = userListMap[0];
@@ -68,14 +68,14 @@ class LocalDBController {
     final Database db = await LocalDBProvider.db.database;
 
     // Query data from the DB
-    return await db.rawQuery('SELECT fylke, kommune FROM $_userTable');
+    return await db.rawQuery('SELECT fylke, kommune FROM $_userTestTable');
   }
 
   /// Returns all the findings done by the user. Saved locally.
   static Future<List<Map<String, dynamic>>> getAllUserFindings() async  {
     final Database db = await LocalDBProvider.db.database;
 
-    final List<Map<String, dynamic>> _findingsListMap = await db.query(_findingsTable);
+    final List<Map<String, dynamic>> _findingsListMap = await db.query(_findingsTestTable);
 
     return _findingsListMap;
   }

@@ -11,8 +11,8 @@ class LocalDBProvider {
   static final LocalDBProvider db = LocalDBProvider._();
 
   static Database _database;
-  String _userTable = 'slugflutter';
-  String _findingsTable = 'findings';
+  String _userTestTable = 'slugflutterTest';
+  String _findingsTestTable = 'findingsTest';
 
   Future<Database> get database async {
     if (_database != null)  {
@@ -23,7 +23,7 @@ class LocalDBProvider {
     _database = await _initDB();
 
     try {
-      await _database.insert(_userTable, User.toMap());
+      await _database.insert(_userTestTable, User.toMap());
       print('Inserted');
     } catch (e) {
       print('User already in database!');
@@ -36,16 +36,14 @@ class LocalDBProvider {
     return await openDatabase(join(await getDatabasesPath(), 'local_db.db'), onCreate: (Database db, int version) async {
         await db.execute(
           // replace fylke and kommune with SlufFinding object.
-          'CREATE TABLE $_userTable(id INTEGER PRIMARY KEY, fylke TEXT, kommune TEXT, totalFinds INTEGER, lastFind INTEGER, maxFind INTEGER)',
+          'CREATE TABLE $_userTestTable(id INTEGER PRIMARY KEY, fylke TEXT, kommune TEXT, totalFinds INTEGER, lastFind INTEGER, maxFind INTEGER)',
         );
         await db.execute(
-          'CREATE TABLE $_findingsTable(id INTEGER PRIMARY KEY, find INTEGER, date TEXT, time TEXT)',
+          'CREATE TABLE $_findingsTestTable(id INTEGER PRIMARY KEY, find INTEGER, date TEXT, time TEXT)',
         );
       },
       version: 1,
       singleInstance: true
     );
-
-    
   }
 }
