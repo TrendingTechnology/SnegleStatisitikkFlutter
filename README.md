@@ -1,17 +1,18 @@
 # Snegle statistikk flutter
 
+![](https://i.imgur.com/XsNDPkt.png)
+
 Hobby prosjekt for våren, Snegle Statistikk app! Hold kontroll på hvor mange brun snegler du har knerta iløpet av året, se hvor mange som er funnet i din kommune og ditt fylke, personlig statistikk, kommunal og fylkes statistikk. Ha konkurranse med naboen eller noen andre som er plaget av brun snegler!
 
 Dette er en MVP så flere features og optimalisering av appen og backend er planlagt!
 
 ## Hvordan installere
 
-    1 Last ned flutter
+* Last ned flutter
 
-    2.1 Koble telefon til maskinen, telefonen må være i "developer" modus 
-    2.2 Eller bruk en emulator.
+* Koble telefon til maskinen, telefonen må være i "developer" modus. Eller bruk en emulator.
 
-    3 Kjør "flutter doctor" for å se at alt er som det skal. Hvis ja, kjør "flutter run"
+* Kjør ```flutter doctor``` for å se at alt er som det skal. Hvis ja, kjør ```flutter run```
 
 ## Data håndtering
 
@@ -23,17 +24,17 @@ Er ikke utvikler av yrke, så arkitektur og kode er ikke ideell, verken i Flutte
 
 ## Mål videre
 
-    * Redesign av arkitektur, bruke BLoC eller Provider for å holde rede på state i app.
-    * Flere statistikker:
-        - Funfacts:
-            > Snitt fangst per dag i Norge
-            > Dato for flest fangster i Norge
-            > Kommune med flest fanster i Norge
-            > Fylke med flest fangster i Norge
-        - Års statistikk for kommuner og fylker
-        - Måneds statistikk for kommuner og fylker
-    * Legge til at man kan registrere om det er Regn, Sol eller Overskyet når       funnene ble gjort
-    * Release i Play Store og Apple Store før våren, iallefall MVP for å teste.
+* Redesign av arkitektur, bruke BLoC eller Provider for å holde rede på state i app.
+* Flere statistikker:
+  - Funfacts:
+    - Snitt fangst per dag i Norge
+    - Dato for flest fangster i Norge
+    - Kommune med flest fanster i Norge
+    - Fylke med flest fangster i Norge
+  - Års statistikk for kommuner og fylker
+  - Måneds statistikk for kommuner og fylker
+* Legge til at man kan registrere om det er Regn, Sol eller Overskyet når funnene ble gjort. Og lage statistikk av det.
+* Release i Play Store og Apple Store før våren, iallefall MVP for å teste.
 
 Last ned, test og kom gjerne med feedback og forslag til features eller fixes!
 
