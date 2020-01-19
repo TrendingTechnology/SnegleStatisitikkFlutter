@@ -3,14 +3,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:slugflutter/database/controllers/localDBcontroller.dart';
-import 'package:slugflutter/database/models/user_model.dart';
-import 'package:slugflutter/database/queries/queries.dart';
-import 'package:slugflutter/ui/dialogs/app_testing_dialog.dart';
-import 'package:slugflutter/ui/dialogs/stats.dart';
-import 'package:slugflutter/ui/dialogs/user_info.dart';
-import 'package:slugflutter/ui/themes/theme.dart';
-import 'package:slugflutter/ui/dialogs/add_find.dart';
+import 'package:SnegleStatistikkflutter/database/controllers/localDBcontroller.dart';
+import 'package:SnegleStatistikkflutter/database/models/user_model.dart';
+import 'package:SnegleStatistikkflutter/database/queries/queries.dart';
+import 'package:SnegleStatistikkflutter/ui/dialogs/app_testing_dialog.dart';
+import 'package:SnegleStatistikkflutter/ui/dialogs/stats.dart';
+import 'package:SnegleStatistikkflutter/ui/dialogs/user_info.dart';
+import 'package:SnegleStatistikkflutter/ui/themes/theme.dart';
+import 'package:SnegleStatistikkflutter/ui/dialogs/add_find.dart';
 import 'app_info.dart';
 
 class MainPage extends StatefulWidget {

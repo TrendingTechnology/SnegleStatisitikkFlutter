@@ -1,5 +1,5 @@
-name: slugflutter
-description: Flutter project to get statistics about slug findings in Norway.
+name: SnegleStatistikkflutter
+description: Flutter prosjekt for å føre statistikk over brunsneglefunn i Norge.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43

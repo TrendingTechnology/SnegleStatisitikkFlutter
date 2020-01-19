@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:slugflutter/widgets/round_cancel_button.dart';
-import 'package:slugflutter/ui/themes/theme.dart';
+import 'package:SnegleStatistikkflutter/widgets/round_cancel_button.dart';
+import 'package:SnegleStatistikkflutter/ui/themes/theme.dart';
 
 
 class AppInfo extends StatelessWidget {

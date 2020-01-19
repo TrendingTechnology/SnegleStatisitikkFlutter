@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:slugflutter/database/controllers/localDBcontroller.dart';
-import 'package:slugflutter/ui/themes/theme.dart';
-import 'package:slugflutter/utils/fylker_og_kommuner.dart' as KommunerOgFylker;
+import 'package:SnegleStatistikkflutter/database/controllers/localDBcontroller.dart';
+import 'package:SnegleStatistikkflutter/ui/themes/theme.dart';
+import 'package:SnegleStatistikkflutter/utils/fylker_og_kommuner.dart' as KommunerOgFylker;
 
 class UserInfoDialog  {
 

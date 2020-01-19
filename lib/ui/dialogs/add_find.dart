@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:slugflutter/database/controllers/APIcontroller.dart';
-import 'package:slugflutter/database/controllers/localDBcontroller.dart';
-import 'package:slugflutter/database/mutations/mutations.dart';
-import 'package:slugflutter/ui/themes/theme.dart';
+import 'package:SnegleStatistikkflutter/database/controllers/APIcontroller.dart';
+import 'package:SnegleStatistikkflutter/database/controllers/localDBcontroller.dart';
+import 'package:SnegleStatistikkflutter/database/mutations/mutations.dart';
+import 'package:SnegleStatistikkflutter/ui/themes/theme.dart';
 
 class AddFindDialog  {
 

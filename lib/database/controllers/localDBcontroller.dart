@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:slugflutter/database/local_db.dart';
-import 'package:slugflutter/database/models/user_model.dart';
+import 'package:SnegleStatistikkflutter/database/local_db.dart';
+import 'package:SnegleStatistikkflutter/database/models/user_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 String _userTestTable = 'slugflutterTest';

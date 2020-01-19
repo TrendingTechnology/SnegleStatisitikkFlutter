@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:slugflutter/database/controllers/localDBcontroller.dart';
-import 'package:slugflutter/ui/themes/theme.dart';
-import 'package:slugflutter/widgets/round_cancel_button.dart';
+import 'package:SnegleStatistikkflutter/database/controllers/localDBcontroller.dart';
+import 'package:SnegleStatistikkflutter/ui/themes/theme.dart';
+import 'package:SnegleStatistikkflutter/widgets/round_cancel_button.dart';
 
 class MyStats extends StatefulWidget {
 

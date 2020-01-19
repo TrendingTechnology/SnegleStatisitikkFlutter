@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:slugflutter/ui/themes/theme.dart';
+import 'package:SnegleStatistikkflutter/ui/themes/theme.dart';
 
 class TestingDialog {
   static Future<bool> showTestDialog(BuildContext context)  {
@@ -22,7 +22,7 @@ class TestingDialog {
               Divider(
                 color: Colors.white,
               ),
-              Text('App under testing,\nalle databaser vil bli\nslettet 1. mars 2020!',
+              Text('App under testing,\nalle funn vil bli\nresatt 1. mars 2020!',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0
