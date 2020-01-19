@@ -79,7 +79,7 @@ class _MainPageState extends State<MainPage>  {
       child:  ListView(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(top: 30.0),
+            padding: EdgeInsets.only(top: 0.0),
             child: Builder(
               builder: (context) => RawMaterialButton(
                 onPressed: () =>
