@@ -4,9 +4,12 @@ class APIController {
   static addFinding(String kommune, String fylke, int count)  {
 
     var _dateNow = DateTime.now();
-    var _date = '${_dateNow.day}.${_dateNow.month}.${_dateNow.year}';
-    var _hour = _dateNow.hour < 10 ? '0${_dateNow.hour}' : '${_dateNow.hour}'; //  +1 to correct from UTC time.
+    var _dateDay = _dateNow.day < 10 ? '0${_dateNow.day}' : '${_dateNow.day}'; // To add a 0 if day less than 10.
+    var _dateMonth = _dateNow.month < 10 ? '0${_dateNow.month}' : '${_dateNow.month}'; // To add a 0 if month less than 10.
+    var _date = '$_dateDay.$_dateMonth.${_dateNow.year}';
+    var _hour = _dateNow.hour < 10 ? '0${_dateNow.hour}' : '${_dateNow.hour}'; //  + 1 to correct from UTC time.
     var _minutes = _dateNow.minute < 10 ? '0${_dateNow.minute}' : '${_dateNow.minute}';
+
     return  { 
               'kommune': kommune,
               'fylke': fylke,
