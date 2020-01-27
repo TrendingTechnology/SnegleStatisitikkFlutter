@@ -1,3 +1,4 @@
+import 'package:SnegleStatistikkflutter/ui/pages/stats/funfacts.dart';
 import 'package:flutter/material.dart';
 import 'package:SnegleStatistikkflutter/ui/pages/stats/mystats.dart';
 import 'package:SnegleStatistikkflutter/ui/themes/theme.dart';
@@ -27,7 +28,7 @@ class StatsDialog  {
                 color: Colors.white,
               ),
               Padding(
-                padding: EdgeInsets.only(top: 30, bottom: 20),
+                padding: EdgeInsets.only(top: 20),
                 child: FlatButton(
                   shape: RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(45),
@@ -51,7 +52,32 @@ class StatsDialog  {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 30),
+                padding: EdgeInsets.only(bottom: 20),
+                child: FlatButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(45),
+                    side: BorderSide(color: Colors.white)
+                  ),
+                  color: Colors.white,
+                  child: Text(
+                    'Funfacts',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      color: CustomTheme.getTheme.dialogBackgroundColor,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => Funfacts()
+                      ),
+                    );
+                  },
+                ),
+              ),
+
+              Padding(
+                padding: EdgeInsets.only(top: 50),
                 child: RawMaterialButton(
                   onPressed: () {
                     Navigator.of(context).pop(false);
