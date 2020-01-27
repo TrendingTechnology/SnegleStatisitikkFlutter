@@ -26,7 +26,7 @@ class _MainPageState extends State<MainPage>  {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: Stop calling .getAllSimpleUserData every build. Only needed when User Location has changed.
+    //TODO: Stop calling .getAllSimpleUserData every build. Only needed when User Location has changed. User BLoC or Provider to keep track of the state.
     return FutureBuilder(
       future: LocalDBController.getAllSimpleUserData(),
       builder: (context, snapshot) {
@@ -178,7 +178,7 @@ class _MainPageState extends State<MainPage>  {
           Row(
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(left: 45.0),
+                padding: EdgeInsets.only(left: 35.0),
                 child: Builder(
                   builder: (context) => RawMaterialButton(
                     onPressed: () => StatsDialog.showStatsDialog(context),
@@ -208,7 +208,7 @@ class _MainPageState extends State<MainPage>  {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 80, left: 90.0),
+                padding: EdgeInsets.only(top: 80, left: 70.0),
                 child: Builder(
                   builder: (context) => RawMaterialButton(
                     onPressed: () async {
