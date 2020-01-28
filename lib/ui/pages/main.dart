@@ -22,10 +22,16 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage>  {
-  _MainPageState();
+
+  // Used to get the correct padding on different devices.
+  double _screenHeight = 0;
+  double _screenWidth = 0;
 
   @override
   Widget build(BuildContext context) {
+    _screenHeight = MediaQuery.of(context).size.height;
+    _screenWidth = MediaQuery.of(context).size.width;
+
     //TODO: Stop calling .getAllSimpleUserData every build. Only needed when User Location has changed. User BLoC or Provider to keep track of the state.
     return FutureBuilder(
       future: LocalDBController.getAllSimpleUserData(),
@@ -102,7 +108,7 @@ class _MainPageState extends State<MainPage>  {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.only(top: 5.0, left: 30.0),
+                padding: EdgeInsets.only(top: _screenHeight/350, left: _screenWidth/15),
                 child: Text('Mine funn',
                   style: TextStyle(
                     fontSize: 30,
@@ -112,7 +118,7 @@ class _MainPageState extends State<MainPage>  {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.only(top: 5.0, right: 30),
+                padding: EdgeInsets.only(top: _screenHeight/350, right: _screenWidth/15),
                 alignment: Alignment.centerRight,
                 child: Text('${User.toMap()['totalFinds']}',
                   textAlign: TextAlign.start,
@@ -126,7 +132,7 @@ class _MainPageState extends State<MainPage>  {
             ],
           ),
           Padding(
-            padding: EdgeInsets.only(top: 10.0, left: 30, right: 30),
+            padding: EdgeInsets.only(top: _screenHeight/350, left: _screenWidth/15, right: _screenWidth/15),
             child: Divider(
               color: CustomTheme.getTheme.textSelectionColor,
             ),
@@ -135,7 +141,7 @@ class _MainPageState extends State<MainPage>  {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.only(top: 5.0, left: 30.0),
+                padding: EdgeInsets.only(top: _screenHeight/350, left: _screenWidth/15),
                 child: Text('Min kommune',
                   style: TextStyle(
                     fontSize: 30,
@@ -145,13 +151,13 @@ class _MainPageState extends State<MainPage>  {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.only(top: 5.0, right: 30.0),
+                padding: EdgeInsets.only(top: _screenHeight/350, right: _screenWidth/15),
                 child: _getKommuneFindings(User.toMap()['kommune']),
               ),
             ],
           ),
           Padding(
-            padding: EdgeInsets.only(top: 10.0, left: 30, right: 30),
+            padding: EdgeInsets.only(top: _screenHeight/350, left: _screenWidth/15, right: _screenWidth/15),
             child: Divider(
               color: CustomTheme.getTheme.textSelectionColor,
             ),
@@ -160,7 +166,7 @@ class _MainPageState extends State<MainPage>  {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.only(top: 5.0, left: 30.0),
+                padding: EdgeInsets.only(top: _screenHeight/350, left: _screenWidth/15),
                 child: Text('Mitt fylke',
                   style: TextStyle(
                     fontSize: 30,
@@ -170,7 +176,7 @@ class _MainPageState extends State<MainPage>  {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.only(top: 5.0, right: 30.0),
+                padding: EdgeInsets.only(top: _screenHeight/350, right: _screenWidth/15),
                 child: _getFylkeFindings(User.toMap()['fylke'])
               ),
             ],
@@ -178,7 +184,7 @@ class _MainPageState extends State<MainPage>  {
           Row(
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(left: 35.0),
+                padding: EdgeInsets.only(left: _screenWidth/10),
                 child: Builder(
                   builder: (context) => RawMaterialButton(
                     onPressed: () => StatsDialog.showStatsDialog(context),
@@ -208,7 +214,7 @@ class _MainPageState extends State<MainPage>  {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 80, left: 70.0),
+                padding: EdgeInsets.only(top: _screenHeight/7, left: _screenWidth/4),
                 child: Builder(
                   builder: (context) => RawMaterialButton(
                     onPressed: () async {
@@ -247,7 +253,7 @@ class _MainPageState extends State<MainPage>  {
             ],
           ),
           Padding(
-            padding: EdgeInsets.only(right: 20.0),
+            padding: EdgeInsets.only(right: _screenWidth/15),
             child: Builder(
               builder: (context) => RawMaterialButton(
                 onPressed: () async {

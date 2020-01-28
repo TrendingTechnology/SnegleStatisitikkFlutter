@@ -66,6 +66,14 @@ class _FunfactsState extends State<Funfacts> {
                 documentNode: Queries.getMostFindingsAndDate()
               ),
               builder: (QueryResult result, { VoidCallback refetch, FetchMore fetchMore }) {
+                if (result.loading) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: CustomTheme.getTheme.backgroundColor,
+                      valueColor: AlwaysStoppedAnimation<Color>(CustomTheme.getTheme.textSelectionColor),
+                    )
+                  );
+                }
                 if (result.hasException)  {
                   return Center(
                     child: Text("${result.exception}")
