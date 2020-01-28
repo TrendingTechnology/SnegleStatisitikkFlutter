@@ -1,4 +1,9 @@
-/// Controller to mutate and query a MongoDB with graphql
+import 'package:SnegleStatistikkflutter/database/mutations/mutations.dart';
+import 'package:SnegleStatistikkflutter/database/queries/queries.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+
+/// Controller to mutate and query Google Firestore with graphql
 class APIController {
   /// Used to add the correct variables to the mutation string addFindingsMutation in [Mutations]
   static addFinding(String kommune, String fylke, int count)  {
@@ -18,48 +23,4 @@ class APIController {
               'time': '$_hour:$_minutes'
             };  
   }
-
-  static queryFindingByFylke(String fylke) {
-    return {
-      'fylke': fylke
-    };
-  }
-
-  static queryFindingByKommune(String kommune)  {
-    return {
-      'kommune': kommune
-    };
-  } 
-  
-  // Example: "14.12.2019"
-  static queryFindingByDate(String date)  {
-    return {
-      'date': date
-    };
-  }
-  // Example: "13:55"
-  static queryFindingByTime(String time)  {
-
-  }
-
-  static queryAverageFindingTime() {
-
-  }
-
-  static queryMostFindingsDate() {
-
-  }
-
-  static queryMostFindingsKommune() {
-
-  }
-
-  static queryMostFindingsFylke() {
-
-  }
-
-  static queryFindingsPerDay()  {
-
-  }
-
 }
