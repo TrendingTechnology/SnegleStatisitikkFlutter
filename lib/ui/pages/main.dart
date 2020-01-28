@@ -97,8 +97,8 @@ class _MainPageState extends State<MainPage>  {
                   ),
                   child: Image(
                     image: AssetImage('assets/images/dying_slug.png'),
-                    width: 257.0,
-                    height: 252.0,
+                    width: _screenWidth,
+                    height: _screenHeight/3,
                   ),
                 shape: CircleBorder(),
               ),
@@ -142,7 +142,7 @@ class _MainPageState extends State<MainPage>  {
             children: <Widget>[
               Container(
                 padding: EdgeInsets.only(top: _screenHeight/350, left: _screenWidth/15),
-                child: Text('Min kommune',
+                child: Text('Kommune',
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
@@ -167,7 +167,7 @@ class _MainPageState extends State<MainPage>  {
             children: <Widget>[
               Container(
                 padding: EdgeInsets.only(top: _screenHeight/350, left: _screenWidth/15),
-                child: Text('Mitt fylke',
+                child: Text('Fylke',
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
@@ -182,9 +182,11 @@ class _MainPageState extends State<MainPage>  {
             ],
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(left: _screenWidth/10),
+              Container(
+                height: _screenHeight/4.5,
+                alignment: Alignment(0, 0.7),
                 child: Builder(
                   builder: (context) => RawMaterialButton(
                     onPressed: () => StatsDialog.showStatsDialog(context),
@@ -213,8 +215,9 @@ class _MainPageState extends State<MainPage>  {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(top: _screenHeight/7, left: _screenWidth/4),
+              Container(
+                height: _screenHeight/5,
+                alignment: Alignment(1, 1),
                 child: Builder(
                   builder: (context) => RawMaterialButton(
                     onPressed: () async {
@@ -252,8 +255,9 @@ class _MainPageState extends State<MainPage>  {
               ),
             ],
           ),
-          Padding(
-            padding: EdgeInsets.only(right: _screenWidth/15),
+          Container(
+            height: _screenHeight/7,
+            alignment: Alignment(0, 0),
             child: Builder(
               builder: (context) => RawMaterialButton(
                 onPressed: () async {
