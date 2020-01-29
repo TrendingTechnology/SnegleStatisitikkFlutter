@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:SnegleStatistikkflutter/ui/pages/main.dart';
 import 'package:SnegleStatistikkflutter/ui/themes/theme.dart';
+import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 var _uri = 'http://178.128.254.188/api';
 
-void main() async => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+    .then((_) => runApp(MyApp()));
+}
 
 class MyApp extends StatefulWidget {
   const MyApp({ Key key}) : super (key: key);
