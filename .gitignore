@@ -9,8 +9,8 @@ slug_design.xd
 .buildlog/
 .history
 .svn/
-/android/
-/ios/
+android/
+ios/
 
 # IntelliJ related
 *.iml
